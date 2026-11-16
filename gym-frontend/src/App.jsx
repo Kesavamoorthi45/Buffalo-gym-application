@@ -96,7 +96,7 @@ const App = () => {
            <Route path="/signup" element={<SignupPage />} />
           <Route
             path="/"
-            element={<AuthenticatedRoute element={Dashboard} />}
+            element={<Dashboard />}
           />
           <Route
             path="/genderselection"

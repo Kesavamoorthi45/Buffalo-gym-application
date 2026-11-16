@@ -3,7 +3,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaArrowLeft, FaPlus, FaMinus } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import axiosInstance from "./utils/axiosInstance";
-import "../css/foodSelectionPage.css";
+import "../css/FoodSelectionPage.css";
 import eggImg from "../assets/egg.jpg";
 import Logo from "../assets/logo.png";
 import search from "../assets/search.svg";

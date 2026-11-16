@@ -1,0 +1,16 @@
+@"
+.env
+**/.env
+db.sqlite3
+**/db.sqlite3
+*.log
+**/*.log
+node_modules/
+**/node_modules/
+venv/
+**/venv/
+dist/
+**/dist/
+__pycache__/
+**/__pycache__/
+"@ | Set-Content .gitignore

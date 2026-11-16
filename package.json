@@ -1,0 +1,33 @@
+{
+  "name": "gym-application",
+  "version": "1.0.0",
+  "description": "Integrated Gym Application - Frontend & Backend",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
+    "start": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
+    "frontend": "cd gym-frontend && npm run dev",
+    "backend": "node backend/runserver.js",
+    "frontend:only": "cd gym-frontend && npm run dev",
+    "backend:only": "cd backend && python manage.py runserver",
+    "install:all": "npm install && cd gym-frontend && npm install && cd ../backend && pip install -r requirements.txt",
+    "build:frontend": "cd gym-frontend && npm run build",
+    "lint:frontend": "cd gym-frontend && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "gym",
+    "fitness",
+    "workout",
+    "health",
+    "nutrition"
+  ],
+  "author": "Gym Application Team",
+  "license": "MIT"
+}

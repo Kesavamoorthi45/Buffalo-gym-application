@@ -4,7 +4,7 @@ import axiosInstance from "./utils/axiosInstance";
 import UserIcon from "../assets/user-icon.jpg";
 import AIIcon from "../assets/ai-icon.jpg";
 import LoaderAnimation from "./threedot.json";
-import "../css/ChatPage.css";
+import "../css/chatPage.css";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([

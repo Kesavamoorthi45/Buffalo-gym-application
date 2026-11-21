@@ -24,6 +24,57 @@ import bannerMobile1 from "../assets/1.png";
 import bannerMobile2 from "../assets/2.png";
 import bannerMobile3 from "../assets/3 (1).webp";
 
+const fallbackPrograms = [
+  {
+    id: "gym-updates",
+    title: "Gym Updates",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1733027616/freepik__upload__49026_u8e0ic.jpg",
+    link: "/gym-updates",
+  },
+  {
+    id: "food-plan",
+    title: "Food Plan",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1733027616/freepik__upload__6114_gsqvoz.jpg",
+    link: "/foodpage",
+  },
+  {
+    id: "diet-plan",
+    title: "Diet Plan",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1733027616/freepik__upload__94347_rq6dlw.jpg",
+    link: "/diet-plan",
+  },
+  {
+    id: "gym-schedules",
+    title: "Gym Schedules",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1733027616/freepik__upload__23562_w7a258.jpg",
+    link: "/gym-schedules",
+  },
+  {
+    id: "weight-loss",
+    title: "Weight Loss",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1732948649/kbtqo1watloafihz9pvh.jpg",
+    link: "/weight-loss",
+  },
+  {
+    id: "strength-training",
+    title: "Strength Training",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1732948649/lm4qvkmpmwtvagvc4pft.jpg",
+    link: "/strength-training",
+  },
+  {
+    id: "yoga",
+    title: "Yoga",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1732948649/eoj91tpncbwjzzxzyu5a.jpg",
+    link: "/yoga",
+  },
+  {
+    id: "cardio",
+    title: "Cardio",
+    src: "https://res.cloudinary.com/dmohbdzs1/image/upload/t_card%20design/v1732948649/pj14sosvfcqwitd5iavk.jpg",
+    link: "/cardio",
+  },
+];
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -76,7 +127,7 @@ const HomePage = () => {
         });
 
         // Optimize program images
-        const fetchedPrograms = homeResponse.data.programs
+        const fetchedPrograms = (homeResponse.data?.programs || [])
           .slice(0, 8)
           .map((program) => ({
             id: program.id,
@@ -84,10 +135,10 @@ const HomePage = () => {
             title: program.title,
             link: `/${program.title.toLowerCase().replace("_", "-")}`,
           }));
-        setPrograms(fetchedPrograms);
+        setPrograms(fetchedPrograms.length ? fetchedPrograms : fallbackPrograms);
       } catch (error) {
         console.error("Error fetching program data:", error);
-        // Fallback to default/cached programs if needed
+        setPrograms(fallbackPrograms);
       } finally {
         setLoading(false);
       }

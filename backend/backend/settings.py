@@ -13,7 +13,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
 
 load_dotenv()
@@ -72,7 +71,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,6 +79,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
 ]
+if os.getenv('RENDER'):
+    MIDDLEWARE.insert(2, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -180,6 +180,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 if os.getenv('DATABASE_URL'):
+    import dj_database_url
+
     DATABASES = {
         'default': dj_database_url.config(conn_max_age=600)
     }
@@ -237,10 +239,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STORAGES = {
-    'default': {'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'},
-    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
-}
+if os.getenv('RENDER'):
+    STORAGES = {
+        'default': {'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'},
+        'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+    }
 
 LOGGING = {
     'version': 1,
